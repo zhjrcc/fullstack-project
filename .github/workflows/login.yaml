@@ -1,0 +1,22 @@
+name: Deploy Blog Application
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      name: Deploy backend
+      env:
+        HOST: ${{ secrets.ALICLOUD_HOST }}
+        USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
+        KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
+      run: |
+        echo $KEY
+        echo $KEY > alicloud_key.pem
+        chmod 600 alicloud_key.pem
+        ssh -T -i alicloud_key.pem $USERNAME@$HOST << 'EOF'
+          docker pull zhjrcc/blog-backend:latest
+          docker run -it -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend         
+        EOF
