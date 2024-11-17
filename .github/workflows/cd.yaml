@@ -27,7 +27,7 @@ jobs:
           USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
         run: |
-          echo "$KEY" > alicloud_key
+          echo $KEY > alicloud_key
           chmod 600 alicloud_key
           ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-backend:latest
@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfilew
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/blog-frontend:latest
           build-args: VITE_BACKEND_URL=http://8.138.180.252:3001/api/v1
@@ -48,7 +48,7 @@ jobs:
           USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
         run: |
-          echo "$KEY" > alicloud_key
+          echo $KEY > alicloud_key
           chmod 600 alicloud_key
           ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-frontend:latest
