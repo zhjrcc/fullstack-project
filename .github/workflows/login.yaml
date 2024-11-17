@@ -13,7 +13,7 @@ jobs:
           USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
         run: |
-          echo "${{ secrets.ALICLOUD_SSH_KEY }}" > alicloud_key.pem
+          echo "$KEY" > alicloud_key.pem
           chmod 600 alicloud_key.pem
           ssh -o StrictHostKeyChecking=no -T -i alicloud_key.pem $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-backend:latest
