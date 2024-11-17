@@ -27,6 +27,7 @@ jobs:
           USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
         run: |
+          echo $KEY
           echo $KEY > alicloud_key
           chmod 600 alicloud_key
           ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
