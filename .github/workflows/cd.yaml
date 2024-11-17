@@ -29,9 +29,9 @@ jobs:
         run: |
           echo "$KEY" > alicloud_key
           chmod 600 alicloud_key
-          ssh -i alicloud_key $USERNAME@$HOST << 'EOF'
+          ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-backend:latest
-            docker run -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend         
+            docker run -it -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend         
           EOF
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
@@ -50,7 +50,7 @@ jobs:
         run: |
           echo "$KEY" > alicloud_key
           chmod 600 alicloud_key
-          ssh -i alicloud_key $USERNAME@$HOST << 'EOF'
+          ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-frontend:latest
-            docker run -p 3000:80 zhjrcc/blog-frontend
+            docker run -it -p 3000:80 zhjrcc/blog-frontend
           EOF
