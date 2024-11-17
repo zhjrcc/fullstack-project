@@ -28,9 +28,9 @@ jobs:
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
         run: |
           echo $KEY
-          echo $KEY > alicloud_key
-          chmod 600 alicloud_key
-          ssh -i alicloud_key $USERNAME@$HOST << 'EOF'
+          echo $KEY > alicloud_key.pem
+          chmod 600 alicloud_key.pem
+          ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-backend:latest
             docker run -it -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend         
           EOF
@@ -51,7 +51,7 @@ jobs:
         run: |
           echo $KEY > alicloud_key
           chmod 600 alicloud_key
-          ssh -i alicloud_key $USERNAME@$HOST << 'EOF'
+          ssh -T -i alicloud_key $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-frontend:latest
             docker run -it -p 3000:80 zhjrcc/blog-frontend
           EOF
