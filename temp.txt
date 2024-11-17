@@ -2,6 +2,7 @@ docker pull zhjrcc/blog-backend:latest
 docker pull zhjrcc/blog-frontend:latest
 
 docker build -t blog-backend backend/
+
 docker build -t blog-frontend .
 
 docker build --platform linux/amd64 --build-arg "VITE_BACKEND_URL=http://8.138.180.252:3001/api/v1" -t blog-frontend .
