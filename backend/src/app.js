@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 postsRoutes(app)
 
 app.get('/', (req, res) => {
-  res.send('Hello from zhjrcc!')
+  res.send('Hello DOCKER!')
 })
 
 export { app }
