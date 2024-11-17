@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "$KEY" > alicloud_key.pem
           chmod 600 alicloud_key.pem
-          ssh -o StrictHostKeyChecking=no -T -i alicloud_key.pem $USERNAME@$HOST << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i alicloud_key.pem $USERNAME@$HOST << 'EOF'
             docker pull zhjrcc/blog-backend:latest
-            docker run -it -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend         
+            docker run -it -e PORT=3001 -e DATABASE_URL="mongodb+srv://zjrhello:MIYn2klyTk2ERgOd@blog.lihyk.mongodb.net/?retryWrites=true&w=majority&appName=blog" -p 3001:3001 zhjrcc/blog-backend
           EOF
