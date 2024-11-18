@@ -33,7 +33,6 @@ jobs:
           HOST: ${{ secrets.ALICLOUD_HOST }}
           USERNAME: ${{ secrets.ALICLOUD_USERNAME }}
           KEY: ${{ secrets.ALICLOUD_SSH_KEY }}
-          DATABASE_URL: $${{ secrets.MONGODB_DATABASE_URL}}
         run: |
           echo "$KEY" > alicloud_key.pem
           chmod 600 alicloud_key.pem
@@ -42,6 +41,6 @@ jobs:
             docker pull "${{secrets.DOCKERHUB_USERNAME}}/blog-backend:latest"
             docker stop blog-frontend blog-backend
             docker system prune -f
-            docker run -d --name blog-backend -e PORT=3001 -e DATABASE_URL="$DATABASE_URL" -p 3001:3001 "${{secrets.DOCKERHUB_USERNAME}}/blog-backend"
+            docker run -d --name blog-backend -e PORT=3001 -e DATABASE_URL="${{ secrets.MONGODB_DATABASE_URL}}" -p 3001:3001 "${{secrets.DOCKERHUB_USERNAME}}/blog-backend"
             docker run -d --name blog-frontend -p 3000:80 "${{secrets.DOCKERHUB_USERNAME}}/blog-frontend"
           EOF
