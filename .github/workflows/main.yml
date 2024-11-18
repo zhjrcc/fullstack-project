@@ -18,11 +18,5 @@ jobs:
           echo "$KEY" > alicloud_key.pem
           chmod 600 alicloud_key.pem
           ssh -o StrictHostKeyChecking=no -T -i alicloud_key.pem $USERNAME@$HOST << 'EOF'
-            docker pull $DOCKERHUB_USERNAME/blog-frontend:latest
-            docker pull $DOCKERHUB_USERNAME/blog-backend:latest
-            docker stop $DOCKERHUB_USERNAME/blog-frontend
-            docker stop $DOCKERHUB_USERNAME/blog-backend
-            docker system prune -f
-            docker run -d -e PORT=3001 -e DATABASE_URL=$DATABASE_URL -p 3001:3001 $DOCKERHUB_USERNAME/blog-backend
-            docker run -d -p 3000:80 $DOCKERHUB_USERNAME/blog-frontend
+            echo $DOCKERHUB_USERNAME/blog-frontend:latest
           EOF
